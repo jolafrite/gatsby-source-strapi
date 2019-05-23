@@ -42,7 +42,9 @@ exports.sourceNodes = function () {
         _ref3$loginData = _ref3.loginData,
         loginData = _ref3$loginData === undefined ? {} : _ref3$loginData,
         _ref3$queryLimit = _ref3.queryLimit,
-        queryLimit = _ref3$queryLimit === undefined ? 100 : _ref3$queryLimit;
+        queryLimit = _ref3$queryLimit === undefined ? 100 : _ref3$queryLimit,
+        _ref3$availableLngs = _ref3.availableLngs,
+        availableLngs = _ref3$availableLngs === undefined ? [] : _ref3$availableLngs;
     var createNode, touchNode, jwtToken, loginEndpoint, loginResponse, promises, entities;
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
@@ -98,7 +100,8 @@ exports.sourceNodes = function () {
                 apiURL: apiURL,
                 contentType: contentType,
                 jwtToken: jwtToken,
-                queryLimit: queryLimit
+                queryLimit: queryLimit,
+                availableLngs: availableLngs
               });
             });
 
