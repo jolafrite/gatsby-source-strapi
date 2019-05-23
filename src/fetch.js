@@ -2,7 +2,13 @@ import axios from 'axios'
 import { isObject, startsWith, forEach } from 'lodash'
 import pluralize from 'pluralize'
 
-module.exports = async ({ apiURL, contentType, jwtToken, queryLimit, availableLngs }) => {
+module.exports = async ({
+  apiURL,
+  contentType,
+  jwtToken,
+  queryLimit,
+  availableLngs,
+}) => {
   console.time('Fetch Strapi data')
   console.log(`Starting to fetch data from Strapi (${pluralize(contentType)})`)
 
@@ -25,18 +31,18 @@ module.exports = async ({ apiURL, contentType, jwtToken, queryLimit, availableLn
 
   // Map and clean data.
   return documents.data.map(item => {
-    const cleanItem = clean(item);
+    const cleanItem = clean(item)
 
-    if(availableLngs.length) {
+    if (availableLngs.length) {
       cleanItem.locales = availableLngs.map(lng => ({
         lng,
-      }));
+      }))
 
-      return localize(cleanItem);
+      return localize(cleanItem)
     }
 
-    return cleanItem;
-  });
+    return cleanItem
+  })
 }
 
 /**
@@ -62,22 +68,22 @@ const clean = item => {
 
 const localize = item => {
   forEach(item, (value, key) => {
-    const [fieldName, fieldLocale] = key.split('__');
+    const [fieldName, fieldLocale] = key.split('__')
     if (item.locales && item.locales.length && fieldLocale) {
       item.locales = item.locales.map(locale => {
         if (fieldLocale === locale.lng) {
           return {
             ...locale,
             [fieldName]: value,
-          };
+          }
         }
 
         return locale
-      });
+      })
 
-      delete item[key];
+      delete item[key]
     }
-  });
+  })
 
   return item
 }
